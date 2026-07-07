@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Info</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<main class="page-shell">
+    <section class="glass-panel landing-panel">
+        <div class="landing-grid">
+            <div class="landing-copy">
+                <p class="eyebrow">Student Information System</p>
+                <h1>Manage student records with neon glass style.</h1>
+                <p class="hero-text">Keep student name, email, department, year, and phone details organized with validation, MySQL storage, and clean exception handling.</p>
+
+                <div class="hero-actions">
+                    <a class="primary-action" th:href="@{/students/new}">Add Student</a>
+                    <a class="ghost-action view-action" th:href="@{/students}">View Students</a>
+                </div>
+            </div>
+
+            <div class="student-info-card">
+                <div class="profile-ring">
+                    <span th:text="${studentCount}">0</span>
+                </div>
+                <p class="stat-label">Saved Student Files</p>
+                <strong>CRUD Ready</strong>
+                <div class="info-lines">
+                    <span>MySQL Database</span>
+                    <span>Validated Forms</span>
+                    <span>Exception Safe</span>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

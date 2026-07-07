@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<main class="page-shell">
+    <section class="glass-panel list-panel">
+        <div class="toolbar">
+            <div>
+                <p class="eyebrow">All Student Files</p>
+                <h1>Student List</h1>
+            </div>
+            <div class="toolbar-actions">
+                <a class="ghost-action" th:href="@{/}">Home</a>
+                <a class="primary-action" th:href="@{/students/new}">Add Student</a>
+            </div>
+        </div>
+
+        <div class="alert success" th:if="${successMessage}" th:text="${successMessage}"></div>
+
+        <div class="empty-state" th:if="${#lists.isEmpty(students)}">
+            <div class="empty-icon">+</div>
+            <h2>No student records yet</h2>
+            <p>Create your first record and the dashboard will start showing your college data here.</p>
+            <a class="primary-action" th:href="@{/students/new}">Add First Student</a>
+        </div>
+
+        <div class="table-wrap" th:unless="${#lists.isEmpty(students)}">
+            <table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Department</th>
+                    <th>Year</th>
+                    <th>Phone</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="student : ${students}">
+                    <td th:text="${student.name}">Asha Kumar</td>
+                    <td th:text="${student.email}">asha@example.com</td>
+                    <td th:text="${student.department}">Computer Science</td>
+                    <td th:text="${student.year}">2</td>
+                    <td th:text="${student.phone}">9876543210</td>
+                    <td class="actions">
+                        <a class="ghost-action" th:href="@{/students/{id}/edit(id=${student.id})}">Edit</a>
+                        <form th:action="@{/students/{id}/delete(id=${student.id})}" method="post"
+                              onsubmit="return confirm('Delete this student?');">
+                            <button class="danger-action" type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+</body>
+</html>
