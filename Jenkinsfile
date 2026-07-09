@@ -45,8 +45,3 @@ pipeline {
         }
     }
 }
-stage('version') {
-            steps {
-                sh 'java --version'
-            }
-        }
