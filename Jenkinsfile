@@ -23,19 +23,16 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh '''
-                   pkill -f clg-0.0.1-SNAPSHOT.jar || true
-
-                   cd /var/lib/jenkins/workspace/web
-
-                   setsid java -jar target/clg-0.0.1-SNAPSHOT.jar > spring.log 2>&1 < /dev/null &
- 
-                   sleep 10
-
-                   ps -ef | grep clg || true
-
-                   cat spring.log || true
-                   '''
+             sh '''
+               pkill -f clg-0.0.1-SNAPSHOT.jar || true
+               export BUILD_ID=dontKillMe
+               cd /var/lib/jenkins/workspace/web
+               nohup java -jar target/clg-0.0.1-SNAPSHOT.jar \
+               > spring.log 2>&1 < /dev/null &
+               disown || true
+               sleep 5
+               ps -ef | grep clg
+               '''
             }
         }
     }
