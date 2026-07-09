@@ -19,8 +19,6 @@ pipeline {
                 }
             }
         }
-            }
-        }
         stage("Run the spring application") {
             steps { 
                 sh '''
