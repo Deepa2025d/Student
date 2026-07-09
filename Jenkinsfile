@@ -6,42 +6,48 @@ pipeline {
     }
 
     stages {
-        stage('build stage') {
+
+        stage('Build') {
             steps {
                 sh 'mvn clean package -DskipTests'
             }
             post {
                 success {
-                    echo "build success"
+                    echo 'Build Success'
                 }
                 failure {
-                    echo "build failure"
+                    echo 'Build Failed'
                 }
             }
         }
-        stage("Run the spring application") {
-            steps { 
-                sh '''
-                    echo "Stopping existing Spring Boot application if running..."
-                    if pgrep -f *.jar > /dev/null; then
-                        sudo pkill -f *.jar
-                        echo "Application stopped."
-                    else
-                        echo "No existing application running."
-                    fi
 
-                    echo "Starting the Spring Boot application..."
-                    sudo java -jar target/*.jar > /dev/null 2>&1 &
+        stage('Deploy') {
+            steps {
+                sh '''
+                    echo "Stopping existing Spring Boot application..."
+
+                    sudo pkill -f "clg-0.0.1-SNAPSHOT.jar" || true
+
+                    sleep 5
+
+                    echo "Starting Spring Boot application..."
+
+                    nohup sudo java -jar target/clg-0.0.1-SNAPSHOT.jar > spring.log 2>&1 &
+
+                    sleep 10
+
+                    echo "Application Started"
                 '''
             }
         }
     }
+
     post {
         success {
-            echo "pipeline success"
+            echo 'Pipeline Success'
         }
         failure {
-            echo "pipeline failure"
+            echo 'Pipeline Failed'
         }
     }
 }
