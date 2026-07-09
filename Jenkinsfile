@@ -32,7 +32,7 @@ pipeline {
 
                     echo "Starting Spring Boot application..."
 
-                    nohup sudo java -jar target/clg-0.0.1-SNAPSHOT.jar > spring.log 2>&1 &
+                     sudo java -jar target/clg-0.0.1-SNAPSHOT.jar
 
                     sleep 10
 
