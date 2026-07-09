@@ -25,17 +25,9 @@ pipeline {
             steps {
                 sh '''
                     echo "Stopping existing Spring Boot application..."
-
-                    pkill -f "clg-0.0.1-SNAPSHOT.jar" || true
-
-                    sleep 5
-
-                    echo "Starting Spring Boot application..."
-
-                    nohup sudo java -jar target/*.jar > spring.log 2>&1 &
-
-                    sleep 10
-
+                    pkill -f clg-0.0.1-SNAPSHOT.jar || true
+                    export BUILD_ID=dontKillMe
+                    nohup java -jar target/clg-0.0.1-SNAPSHOT.jar > spring.log 2>&1 &
                     echo "Application Started"
                 '''
             }
