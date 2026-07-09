@@ -24,11 +24,17 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                    echo "Stopping existing Spring Boot application..."
-                    pkill -f clg-0.0.1-SNAPSHOT.jar || true
-                    export BUILD_ID=dontKillMe
-                    nohup java -jar target/clg-0.0.1-SNAPSHOT.jar > spring.log 2>&1 &
-                    echo "Application Started"
+                    sudo pkill -f clg-0.0.1-SNAPSHOT.jar || true
+
+            export BUILD_ID=dontKillMe
+
+            cd /var/lib/jenkins/workspace/web
+
+            nohup java -jar target/clg-0.0.1-SNAPSHOT.jar > spring.log 2>&1 < /dev/null &
+
+            sleep 5
+
+            ps -ef | grep clg || true
                 '''
             }
         }
