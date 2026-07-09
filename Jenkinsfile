@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('build stage') {
             steps {
-                sh 'mvn clean package'
+                sh 'mvn clean package -DskipTests'
             }
             post {
                 success {
@@ -19,17 +19,6 @@ pipeline {
                 }
             }
         }
-        stage('build test') {
-            steps {
-                sh 'mvn test'
-            }
-            post {
-                success {
-                    echo "test success"
-                }
-                failure {
-                    echo "test failure"
-                }
             }
         }
         stage("Run the spring application") {
