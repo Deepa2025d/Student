@@ -26,13 +26,13 @@ pipeline {
                 sh '''
                     echo "Stopping existing Spring Boot application..."
 
-                    sudo pkill -f "clg-0.0.1-SNAPSHOT.jar" || true
+                    pkill -f "clg-0.0.1-SNAPSHOT.jar" || true
 
                     sleep 5
 
                     echo "Starting Spring Boot application..."
 
-                     sudo java -jar target/clg-0.0.1-SNAPSHOT.jar
+                    java -jar target/clg-0.0.1-SNAPSHOT.jar
 
                     sleep 10
 
