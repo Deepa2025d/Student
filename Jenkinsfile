@@ -32,7 +32,7 @@ pipeline {
 
                     echo "Starting Spring Boot application..."
 
-                    java -jar target/clg-0.0.1-SNAPSHOT.jar
+                    nohup  java -jar target/clg-0.0.1-SNAPSHOT.jar
 
                     sleep 10
 
